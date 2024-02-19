@@ -1,7 +1,7 @@
 class Point:
     """class describing a point in a Cartesian coordinate system
 
-    Args:
+    Attributes:
         x (float): the x coordinate
         y (float): the y coordinate
         z (float): the z coordinate
@@ -15,7 +15,7 @@ class Point:
 class Material:
     """class describing the mechanical characteristics of a material
 
-    Args:
+    Attributes:
         name (str): material mark name
         younge_module (float): Young's modulus of tension of the material
         poisson_ratio (float): Poisson's ratio of the material
@@ -35,8 +35,9 @@ class Material:
 class Geomety:
     """class describing the geometric characteristics of the cross section
 
-    Args:
+    Attributes:
         name (str): type of the section shape
+        params (dict): size values for different shapes
     """
     def __init__(self, name: str, params: dict) -> None:
 
@@ -47,7 +48,7 @@ class Geomety:
 class Beam:
     """class describing a beam
 
-    Args:
+    Attributes:
         length (float): length of beam
         geom (Geomety): geometry of the cross section
         material (Material): matherial of beam
@@ -64,10 +65,61 @@ class Beam:
 class Force:
     """class for describing mechanical force
 
-    Args:
-        coordinate (Point): coordinates of the application of force
-        value (float): magnitude of the force
+    Attributes:
+        coordinate (Point): coorinate to which force is applied
+        value_x (float): magnitude of the force projected on the x-axis
+        value_y (float): magnitude of the force projected on the y-axis
+        value_z (float): magnitude of the force projected on the z-axis
         """
-    def __init__(self, coordinate: Point, value: float, angle: float) -> None:
-        self.coord = coordinate
-        self.value = value
+    def __init__(self,
+                 coordinate: Point,
+                 value_x: float,
+                 value_y: float,
+                 value_z: float) -> None:
+        self.coordinate = coordinate
+        self.value_x = value_x
+        self.value_y = value_y
+        self.value_z = value_z
+
+
+class Pressure:
+    """class for describing a distributed load
+
+    Attributes:
+        intensity_x (float): intensity distributed load projected on the x-axis
+        intensity_y (float): intensity distributed load projected on the y-axis
+        intensity_z (float): intensity distributed load projected on the z-axis
+        start (Point): coordinates of the beginning of the distributed load
+        end (Point): coordinates of the ending of the distributed load
+    """
+    def __init__(self,
+                 intensity_x: float,
+                 intensity_y: float,
+                 intensity_z: float,
+                 start: Point,
+                 end: Point) -> None:
+        self.intensity_x = intensity_x
+        self.intensity_y = intensity_y
+        self.intensity_z = intensity_z
+        self.start = start
+        self.end = end
+
+
+class Moment:
+    """class for describing mechanical moment of force
+
+    Attributes:
+        coordinate (Point): coordinate to which force moment is applied
+        value_x (float): magnitude of moment of force relative to the x axis
+        value_y (float): magnitude of moment of force relative to the y axis
+        value_z (float): magnitude of moment of force relative to the z axis
+        """
+    def __init__(self,
+                 coordinate: Point,
+                 value_x: float,
+                 value_y: float,
+                 value_z: float) -> None:
+        self.coordinate = coordinate
+        self.value_x = value_x
+        self.value_y = value_y
+        self.value_z = value_z
